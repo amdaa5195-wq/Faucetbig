@@ -1,762 +1,1123 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru" dir="ltr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Crypto Earnings Directory</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<style>
-  :root{
-    --bg:#0B1220;
-    --surface:#101A2C;
-    --surface-2:#0E1729;
-    --border:#22314B;
-    --text:#E7ECF5;
-    --text-dim:#8E9BB5;
-    --gold:#D4A544;
-    --gold-soft:#3A2F16;
-    --teal:#3FA796;
-    --danger:#C0654F;
-    --radius:10px;
-    --maxw:1160px;
-  }
+  
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+  <meta name="theme-color" content="#0b1020">
+  <meta name="color-scheme" content="dark">
+  <title>Cinema+ | مشاهدة وتحميل الأفلام والمسلسلات</title>
+  <meta name="description" content="Cinema+ - تصفح المسلسلات والأفلام العربية والأجنبية والتركية والآسيوية والأنمي، وابحث عن العمل وشاهد الحلقات من واجهة مناسبة للتطبيقات.">
+  <meta name="keywords" content="Cinema+, سينما بلس, مسلسلات, أفلام, حلقات, مسلسلات عربية, مسلسلات أجنبية, مسلسلات تركية, مسلسلات آسيوية, مسلسلات أنمي, مسلسلات رمضان, أفلام عربية, أفلام أجنبية, أفلام تركية, أفلام هندية, أفلام آسيوية, أفلام أنمي, مشاهدة مسلسلات, مشاهدة أفلام, تحميل أفلام, تحميل مسلسلات, Series, Movies, TV Series, Arabic Series, Turkish Series, Asian Series, Anime Series, Arabic Movies, Foreign Movies, Indian Movies, Asian Movies, Anime Movies, Watch Series, Watch Movies, Download Movies, Download Series, Streaming Movies, Streaming Series">
+  <meta property="og:title" content="Cinema+ - مسلسلات وأفلام">
+  <meta property="og:description" content="Cinema+ - بحث، أقسام، حلقات، مشاهدة وتحميل.">
+  <meta property="og:type" content="website">
 
-  *{box-sizing:border-box;}
-  html{scroll-behavior:smooth;}
-  body{
-    margin:0;
-    background:var(--bg);
-    color:var(--text);
-    font-family:'Inter', system-ui, sans-serif;
-    line-height:1.5;
-    -webkit-font-smoothing:antialiased;
-  }
-  h1,h2,h3{
-    font-family:'Newsreader', Georgia, serif;
-    font-weight:500;
-    margin:0;
-  }
-  a{color:inherit;}
-  img{display:block;max-width:100%;}
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/hls.js@1"></script>
+  <link rel="stylesheet" href="https://cdn.plyr.io/3.7.8/plyr.css">
+  <script src="https://cdn.plyr.io/3.7.8/plyr.polyfilled.js"></script>
 
-  /* ---------- Top bar ---------- */
-  .topbar{
-    position:sticky; top:0; z-index:50;
-    background:rgba(11,18,32,0.9);
-    backdrop-filter:blur(8px);
-    border-bottom:1px solid var(--border);
-  }
-  .topbar-inner{
-    max-width:var(--maxw);
-    margin:0 auto;
-    padding:16px 24px;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:16px;
-  }
-  .brand{
-    display:flex;
-    align-items:baseline;
-    gap:10px;
-  }
-  .brand-mark{
-    width:28px;height:28px;
-    border-radius:50%;
-    background:conic-gradient(from 220deg, var(--gold), #8a6a24, var(--gold));
-    flex-shrink:0;
-  }
-  .brand-name{
-    font-family:'Newsreader', serif;
-    font-size:19px;
-    letter-spacing:0.2px;
-  }
-  .topnav{
-    display:flex;
-    gap:22px;
-    font-size:14px;
-    color:var(--text-dim);
-    overflow-x:auto;
-    scrollbar-width:none;
-  }
-  .topnav::-webkit-scrollbar{display:none;}
-  .topnav a{
-    white-space:nowrap;
-    text-decoration:none;
-    padding:6px 0;
-    border-bottom:1px solid transparent;
-    transition:color .15s ease, border-color .15s ease;
-  }
-  .topnav a:hover{color:var(--text); border-color:var(--gold);}
-
-  /* ---------- Hero ---------- */
-  .hero{
-    max-width:var(--maxw);
-    margin:0 auto;
-    padding:64px 24px 40px;
-    border-bottom:1px solid var(--border);
-  }
-  .hero h1{
-    font-size:clamp(32px,5vw,48px);
-    line-height:1.15;
-    max-width:14ch;
-  }
-  .hero p{
-    margin-top:18px;
-    max-width:56ch;
-    color:var(--text-dim);
-    font-size:16.5px;
-  }
-  .hero-note{
-    margin-top:22px;
-    display:inline-flex;
-    align-items:flex-start;
-    gap:10px;
-    padding:12px 14px;
-    border:1px solid var(--border);
-    border-radius:8px;
-    background:var(--surface);
-    font-size:13.5px;
-    color:var(--text-dim);
-    max-width:64ch;
-  }
-  .hero-note strong{color:var(--text);}
-
-  /* ---------- Layout ---------- */
-  .layout{
-    max-width:var(--maxw);
-    margin:0 auto;
-    padding:40px 24px 100px;
-    display:grid;
-    grid-template-columns:220px 1fr;
-    gap:48px;
-    align-items:start;
-  }
-  .side{
-    position:sticky;
-    top:74px;
-    display:flex;
-    flex-direction:column;
-    gap:2px;
-  }
-  .side-label{
-    font-size:12px;
-    color:var(--text-dim);
-    margin-bottom:10px;
-  }
-  .side a{
-    text-decoration:none;
-    padding:9px 10px;
-    border-radius:6px;
-    font-size:14.5px;
-    color:var(--text-dim);
-    border-left:2px solid transparent;
-  }
-  .side a:hover{color:var(--text); background:var(--surface);}
-  .side a.active{color:var(--text); border-left-color:var(--gold); background:var(--surface);}
-
-  section.category{
-    padding-top:8px;
-    margin-bottom:64px;
-    scroll-margin-top:74px;
-  }
-  section.category:last-child{margin-bottom:0;}
-  .category-head{
-    display:flex;
-    align-items:baseline;
-    justify-content:space-between;
-    border-bottom:1px solid var(--border);
-    padding-bottom:14px;
-    margin-bottom:22px;
-  }
-  .category-head h2{font-size:24px;}
-  .category-count{font-size:13px;color:var(--text-dim);}
-  .category-desc{
-    color:var(--text-dim);
-    font-size:14.5px;
-    margin:-12px 0 22px;
-    max-width:60ch;
-  }
-
-  /* ---------- Listing row ---------- */
-  .listing{
-    display:grid;
-    grid-template-columns:72px 1fr auto;
-    gap:18px;
-    align-items:center;
-    padding:18px 4px;
-    border-bottom:1px solid var(--border);
-  }
-  .listing:last-child{border-bottom:none;}
-  .thumb{
-    width:72px;height:72px;
-    border-radius:var(--radius);
-    overflow:hidden;
-    background:var(--surface-2);
-    border:1px solid var(--border);
-  }
-  .thumb img{width:100%;height:100%;object-fit:cover;}
-  .listing-body h3{
-    font-size:17px;
-    font-weight:600;
-    font-family:'Inter', sans-serif;
-    margin-bottom:4px;
-  }
-  .listing-body p{
-    margin:0;
-    color:var(--text-dim);
-    font-size:14px;
-    max-width:58ch;
-  }
-  .tag-row{
-    margin-top:8px;
-    display:flex;
-    gap:6px;
-    flex-wrap:wrap;
-  }
-  .tag{
-    font-size:11.5px;
-    color:var(--gold);
-    background:var(--gold-soft);
-    padding:3px 8px;
-    border-radius:20px;
-    border:1px solid rgba(212,165,68,0.25);
-  }
-  .visit-btn{
-    justify-self:end;
-    text-decoration:none;
-    font-size:13.5px;
-    font-weight:600;
-    color:#0B1220;
-    background:var(--gold);
-    padding:9px 16px;
-    border-radius:7px;
-    white-space:nowrap;
-    transition:filter .15s ease, transform .15s ease;
-  }
-  .visit-btn:hover{filter:brightness(1.08); transform:translateY(-1px);}
-
-  /* ---------- Footer ---------- */
-  footer{
-    border-top:1px solid var(--border);
-    padding:32px 24px 48px;
-  }
-  .footer-inner{
-    max-width:var(--maxw);
-    margin:0 auto;
-    display:flex;
-    justify-content:space-between;
-    flex-wrap:wrap;
-    gap:16px;
-    color:var(--text-dim);
-    font-size:13px;
-  }
-
-  /* ---------- Responsive ---------- */
-  @media (max-width:820px){
-    .layout{grid-template-columns:1fr; gap:20px;}
-    .side{
-      position:static;
-      flex-direction:row;
-      overflow-x:auto;
-      gap:6px;
-      padding-bottom:6px;
-      border-bottom:1px solid var(--border);
+  <style>
+    :root{
+      --bg:#080d18;
+      --surface:#111827;
+      --surface-2:#172033;
+      --surface-3:#1c2940;
+      --primary:#17d9f4;
+      --primary-2:#3b82f6;
+      --text:#f8fafc;
+      --muted:#94a3b8;
+      --line:rgba(255,255,255,.075);
+      --shadow:0 14px 35px rgba(0,0,0,.28);
+      --r-xl:24px;
+      --r-lg:18px;
+      --r-md:14px;
+      --plyr-color-main:#17d9f4;
+      --plyr-video-background:#000;
     }
-    .side a{border-left:none; border-bottom:2px solid transparent; white-space:nowrap;}
-    .side a.active{border-bottom-color:var(--gold);}
-    .listing{grid-template-columns:56px 1fr; row-gap:10px;}
-    .thumb{width:56px;height:56px;}
-    .visit-btn{grid-column:2; justify-self:start;}
-  }
-</style>
+
+    *{box-sizing:border-box;margin:0;padding:0;font-family:'Tajawal',sans-serif;-webkit-tap-highlight-color:transparent}
+    html,body{min-height:100%;background:var(--bg);color:var(--text);overflow-x:hidden}
+    body{padding-bottom:max(22px,env(safe-area-inset-bottom))}
+    button,input,a{font:inherit}
+    button,a{touch-action:manipulation}
+    a{text-decoration:none;color:inherit}
+
+    .app-shell{width:min(1180px,100%);margin:0 auto;padding:18px 16px 34px}
+
+    /* لا يوجد أي شريط علوي: البداية مباشرة بالبحث والتبويبات */
+    .search-area{position:sticky;top:0;z-index:60;padding:8px 0 12px;background:linear-gradient(to bottom,var(--bg) 70%,rgba(8,13,24,0));}
+    .search-box{height:54px;background:rgba(17,24,39,.96);border:1px solid var(--line);border-radius:18px;display:flex;align-items:center;gap:12px;padding:0 16px;box-shadow:0 8px 24px rgba(0,0,0,.18);backdrop-filter:blur(14px)}
+    .search-box:focus-within{border-color:rgba(23,217,244,.65);box-shadow:0 0 0 3px rgba(23,217,244,.09)}
+    .search-box i{color:var(--primary);font-size:18px}
+    .search-box input{flex:1;min-width:0;background:transparent;border:0;outline:0;color:#fff;font-size:15px}
+    .search-box input::placeholder{color:#718096}
+    .search-go{width:40px;height:40px;border:0;border-radius:13px;background:linear-gradient(135deg,var(--primary),var(--primary-2));color:#06111b;display:grid;place-items:center;cursor:pointer;font-weight:900}
+
+    .type-tabs{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:10px 0 20px;background:var(--surface);padding:6px;border:1px solid var(--line);border-radius:18px}
+    .type-tab{height:47px;border:0;border-radius:13px;background:transparent;color:var(--muted);font-weight:900;font-size:15px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:9px;transition:.2s ease}
+    .type-tab.active{background:linear-gradient(135deg,rgba(23,217,244,.18),rgba(59,130,246,.18));color:#fff;box-shadow:inset 0 0 0 1px rgba(23,217,244,.35)}
+    .type-tab.active i{color:var(--primary)}
+
+    .view{display:none;animation:fadeUp .28s ease both}
+    .view.active{display:block}
+    @keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+
+    .hero{display:none}
+
+    .section-title{display:flex;align-items:center;justify-content:space-between;margin:8px 0 13px}
+    .section-title h2{font-size:18px;font-weight:900;display:flex;align-items:center;gap:9px}
+    .section-title h2:before{content:"";width:4px;height:22px;border-radius:10px;background:linear-gradient(var(--primary),var(--primary-2))}
+    .section-count{font-size:12px;color:var(--muted);background:var(--surface);border:1px solid var(--line);padding:5px 9px;border-radius:999px}
+
+    .category-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;padding-top:4px}
+    .category-card{min-height:112px;background:radial-gradient(circle at 50% 0%,rgba(23,217,244,.12),transparent 52%),linear-gradient(160deg,#172033,#0f1726);border:1px solid rgba(255,255,255,.08);border-radius:22px;padding:15px 8px 13px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;cursor:pointer;box-shadow:0 12px 28px rgba(0,0,0,.22);transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease}
+    .category-card:active{transform:scale(.95);border-color:rgba(23,217,244,.55);box-shadow:0 5px 15px rgba(0,0,0,.28)}
+    .cat-icon{width:54px;height:54px;flex:0 0 54px;border-radius:18px;display:grid;place-items:center;background:linear-gradient(145deg,rgba(23,217,244,.15),rgba(59,130,246,.08));color:#dffbff;font-size:24px;border:1px solid rgba(23,217,244,.18);box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 8px 18px rgba(0,0,0,.2)}
+    .cat-copy{text-align:center;min-width:0}.cat-copy strong{display:block;font-size:13px;font-weight:900;white-space:nowrap}.cat-copy small{display:none}
+
+    /* ===== Featured content ===== */
+    .featured-section{margin-top:24px}
+    .featured-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:11px}
+    .featured-card{position:relative;overflow:hidden;border-radius:15px;background:var(--surface);border:1px solid rgba(23,217,244,.12);box-shadow:0 10px 24px rgba(0,0,0,.24);cursor:pointer;min-width:0;transition:transform .18s ease,border-color .18s ease}
+    .featured-card:active{transform:scale(.975);border-color:rgba(23,217,244,.5)}
+    .featured-poster{position:relative;aspect-ratio:2/3;background:#111827;overflow:hidden}
+    .featured-poster img{width:100%;height:100%;display:block;object-fit:cover;background:#111827}
+    .featured-star{position:absolute;top:7px;left:7px;width:28px;height:28px;border-radius:9px;display:grid;place-items:center;background:rgba(2,6,23,.8);backdrop-filter:blur(8px);color:#ffd166;border:1px solid rgba(255,255,255,.1);font-size:12px}
+    .featured-badge{position:absolute;top:7px;right:7px;padding:4px 7px;border-radius:8px;background:rgba(2,6,23,.78);backdrop-filter:blur(8px);font-size:10px;font-weight:900;color:var(--primary);border:1px solid rgba(255,255,255,.08)}
+    .featured-title{padding:9px 8px 10px;font-size:12px;font-weight:900;line-height:1.5;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-align:center}
+    .featured-empty{grid-column:1/-1;text-align:center;color:var(--muted);padding:22px 10px;background:rgba(17,24,39,.55);border:1px dashed var(--line);border-radius:16px;font-size:13px}
+    .featured-more-wrap{display:flex;justify-content:center;margin:16px 0 4px}
+    .featured-more{border:1px solid rgba(23,217,244,.28);background:rgba(23,217,244,.08);color:var(--primary);border-radius:12px;padding:10px 18px;font:inherit;font-weight:900;cursor:pointer;display:none;align-items:center;gap:8px}
+    .featured-more:disabled{opacity:.55;cursor:wait}
+    .aads-top-safe{width:100%;max-width:1100px;margin:10px auto 8px;padding:0 10px;box-sizing:border-box;position:relative;z-index:1;text-align:center;overflow:hidden}
+    .aads-top-safe .ad-label{display:block;margin-bottom:5px}
+    .aads-top-frame{width:100%;min-height:55px;display:flex;justify-content:center;align-items:center;overflow:hidden;border-radius:8px}
+    .aads-top-frame iframe{display:block;width:min(728px,100%);height:90px;max-width:100%;border:0;overflow:hidden}
+    .ad-slot-top{position:relative;z-index:1;margin-top:8px;clear:both}
+    @media(min-width:560px){.featured-grid{grid-template-columns:repeat(4,minmax(0,1fr))}}
+    @media(min-width:900px){.featured-grid{grid-template-columns:repeat(6,minmax(0,1fr))}}
+
+    .content-head{position:sticky;top:0;z-index:70;display:flex;align-items:center;gap:10px;margin:0 -16px 16px;padding:10px 16px;background:rgba(8,13,24,.94);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+    .round-back{width:43px;height:43px;flex:0 0 43px;border:1px solid var(--line);border-radius:14px;background:var(--surface);color:#fff;display:grid;place-items:center;cursor:pointer}
+    .content-head h2{font-size:18px;font-weight:900;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+
+    .media-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:11px}
+    .media-item{position:relative;overflow:hidden;border-radius:15px;background:var(--surface);border:1px solid var(--line);box-shadow:0 9px 20px rgba(0,0,0,.22);cursor:pointer;min-width:0}
+    .media-item:active{transform:scale(.98)}
+    .poster-wrap{position:relative;aspect-ratio:2/3;background:#111827;overflow:hidden}
+    .media-item img{width:100%;height:100%;display:block;object-fit:cover;background:#111827}
+    .media-badge{position:absolute;top:7px;right:7px;padding:4px 7px;border-radius:8px;background:rgba(2,6,23,.78);backdrop-filter:blur(8px);font-size:10px;font-weight:900;color:var(--primary);border:1px solid rgba(255,255,255,.08)}
+    .media-title{padding:9px 8px 10px;font-size:12px;font-weight:800;line-height:1.5;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-align:center}
+
+    .load-more{width:100%;height:50px;margin-top:18px;border:1px solid rgba(23,217,244,.25);border-radius:16px;background:rgba(23,217,244,.08);color:var(--primary);font-weight:900;cursor:pointer}
+
+    .details-title{font-size:20px;font-weight:900;line-height:1.6;margin:3px 0 15px;text-align:center}
+    .player-card{background:#000;border-radius:18px;overflow:hidden;border:1px solid var(--line);box-shadow:var(--shadow)}
+    .player-card iframe{display:block;width:100%;aspect-ratio:16/9;border:0}
+    .plyr{border-radius:18px}
+
+    .player-actions{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin:11px 0 18px}
+    .action{min-height:46px;border:1px solid var(--line);border-radius:14px;background:var(--surface);color:#fff;display:flex;align-items:center;justify-content:center;gap:7px;font-weight:800;font-size:13px;cursor:pointer}
+    .action.download{background:linear-gradient(135deg,rgba(23,217,244,.17),rgba(59,130,246,.16));color:var(--primary);border-color:rgba(23,217,244,.26)}
+
+    .episodes-card{margin-top:15px;background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:14px}.episodes-card .section-title{margin-top:0}.episode-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px;max-height:none;overflow:visible;padding:2px}.episode{border:1px solid var(--line);border-radius:16px;background:var(--surface-2);color:#fff;cursor:pointer;overflow:hidden;text-align:right;box-shadow:0 8px 20px rgba(0,0,0,.18);min-width:0}.episode:active{transform:scale(.985)}.episode-poster{width:100%;aspect-ratio:16/9;display:block;object-fit:cover;background:#0f172a}.episode-info{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:10px}.episode-name{font-size:13px;font-weight:900}.episode-play{width:30px;height:30px;border-radius:10px;display:grid;place-items:center;background:rgba(23,217,244,.12);color:var(--primary);flex:0 0 30px}.episode.active{border-color:rgba(23,217,244,.55);box-shadow:0 0 0 1px rgba(23,217,244,.18),0 8px 20px rgba(0,0,0,.2)}
+
+    .choice-modal{position:fixed;inset:0;z-index:10050;display:none;align-items:flex-end;justify-content:center;background:rgba(2,6,23,.76);backdrop-filter:blur(10px);padding:18px}.choice-modal.show{display:flex}.choice-sheet{width:min(460px,100%);background:linear-gradient(160deg,#172033,#0f172a);border:1px solid rgba(255,255,255,.1);border-radius:24px;padding:15px;box-shadow:0 28px 70px rgba(0,0,0,.5);animation:sheetUp .2s ease}.choice-top{display:flex;gap:12px;align-items:center;margin-bottom:14px}.choice-top img{width:76px;height:102px;object-fit:cover;border-radius:14px;background:#111827}.choice-copy{min-width:0}.choice-copy strong{display:block;font-size:16px;font-weight:900;line-height:1.5}.choice-copy span{display:block;color:var(--muted);font-size:13px;margin-top:4px}.choice-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px}.choice-btn{height:52px;border-radius:15px;border:1px solid var(--line);font-weight:900;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:9px}.choice-btn.watch{background:linear-gradient(135deg,var(--primary),var(--primary-2));color:#041018;border:0}.choice-btn.download{background:rgba(255,255,255,.055);color:#fff}.choice-close{width:100%;height:43px;margin-top:9px;border:0;border-radius:13px;background:transparent;color:var(--muted);font-weight:800}@keyframes sheetUp{from{transform:translateY(24px);opacity:0}to{transform:none;opacity:1}}
+
+    body.cinema-mode{background:#000;overflow:hidden}.cinema-shell{position:fixed!important;inset:0!important;z-index:20000!important;background:#000!important;margin:0!important;padding:0!important;border-radius:0!important;width:100vw!important;height:100vh!important;display:flex!important;align-items:center!important;justify-content:center!important}.cinema-shell .player-card{width:100vw!important;height:100vh!important;border:0!important;border-radius:0!important;display:flex;align-items:center;justify-content:center}.cinema-shell .plyr,.cinema-shell video,.cinema-shell iframe{width:100%!important;height:100%!important;max-height:100vh!important;border-radius:0!important}.cinema-shell .player-actions{display:none!important}.plyr__control--overlaid{transform:translate(-50%,-50%) scale(1.12);background:rgba(12,20,32,.88)!important;border:1px solid rgba(255,255,255,.18)!important}.cinema-shell .plyr__controls{padding:18px max(18px,env(safe-area-inset-right)) max(18px,env(safe-area-inset-bottom)) max(18px,env(safe-area-inset-left))!important;background:linear-gradient(transparent,rgba(2,6,12,.88))!important}.cinema-shell .plyr__control{border-radius:12px!important}.cinema-shell .plyr__progress input[type=range]{height:5px}.cinema-shell video{object-fit:contain;background:#000}
+
+    .empty{grid-column:1/-1;text-align:center;color:var(--muted);padding:50px 12px}
+
+    .loader{position:fixed;inset:0;z-index:9999;display:none;align-items:center;justify-content:center;flex-direction:column;gap:14px;background:rgba(5,9,17,.82);backdrop-filter:blur(12px)}
+    .spinner{width:48px;height:48px;border-radius:50%;border:4px solid rgba(23,217,244,.18);border-top-color:var(--primary);animation:spin .8s linear infinite}
+    .loader span{font-size:14px;font-weight:900;color:#fff}
+    @keyframes spin{to{transform:rotate(360deg)}}
+
+    .toast{position:fixed;left:50%;bottom:24px;z-index:10000;transform:translate(-50%,20px);opacity:0;pointer-events:none;background:#111827;color:#fff;border:1px solid var(--line);border-radius:12px;padding:11px 15px;box-shadow:var(--shadow);font-size:13px;transition:.2s;max-width:calc(100% - 32px);text-align:center}
+    .toast.show{opacity:1;transform:translate(-50%,0)}
+
+    @media(max-width:360px){.category-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+    @media(min-width:560px){
+      .category-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+      .media-grid{grid-template-columns:repeat(4,minmax(0,1fr))}
+      .episode-list{grid-template-columns:repeat(3,minmax(0,1fr))}
+    }
+    @media(min-width:900px){
+      .app-shell{padding-left:24px;padding-right:24px}
+      .category-grid{grid-template-columns:repeat(4,minmax(0,1fr))}
+      .media-grid{grid-template-columns:repeat(6,minmax(0,1fr))}
+      .episode-list{grid-template-columns:repeat(4,minmax(0,1fr))}
+    }
+
+    /* ===== Topbar: site name + brand + language switcher ===== */
+    .topbar{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:14px 0 10px}
+    .brand{display:flex;align-items:center;gap:10px;min-width:0}
+    .brand-logo{width:42px;height:42px;flex:0 0 42px;border-radius:13px;display:grid;place-items:center;background:linear-gradient(135deg,var(--primary),var(--primary-2));color:#06111b;font-size:19px;box-shadow:0 8px 18px rgba(23,217,244,.22)}
+    .brand-text{min-width:0;line-height:1.25}
+    .brand-text .site-name{display:block;font-size:17px;font-weight:900;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+    .lang-switch{position:relative}
+    .lang-btn{height:40px;padding:0 12px;border-radius:12px;background:var(--surface);border:1px solid var(--line);color:#fff;font-weight:800;font-size:13px;display:flex;align-items:center;gap:7px;cursor:pointer}
+    .lang-btn i.fa-chevron-down{font-size:10px;color:var(--muted);transition:.18s}
+    .lang-switch.open .lang-btn i.fa-chevron-down{transform:rotate(180deg)}
+    .lang-menu{position:absolute;top:calc(100% + 8px);inset-inline-end:0;min-width:150px;background:linear-gradient(160deg,#172033,#0f172a);border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:6px;box-shadow:0 20px 45px rgba(0,0,0,.4);display:none;z-index:80}
+    .lang-switch.open .lang-menu{display:block}
+    .lang-option{width:100%;padding:10px 12px;border:0;background:transparent;color:#fff;font-weight:700;font-size:13px;border-radius:11px;display:flex;align-items:center;justify-content:space-between;cursor:pointer}
+    .lang-option:hover{background:rgba(255,255,255,.06)}
+    .lang-option.active{color:var(--primary)}
+    .lang-option.active:after{content:"\f00c";font-family:"Font Awesome 6 Free";font-weight:900;font-size:11px}
+
+    /* ===== App download banner ===== */
+    .app-banner{display:flex;align-items:center;gap:13px;background:radial-gradient(circle at 100% 0%,rgba(23,217,244,.16),transparent 55%),linear-gradient(160deg,#172033,#0f1726);border:1px solid rgba(23,217,244,.22);border-radius:20px;padding:14px;margin:0 0 18px;box-shadow:0 14px 30px rgba(0,0,0,.24)}
+    .app-banner-icon{width:52px;height:52px;flex:0 0 52px;border-radius:16px;display:grid;place-items:center;background:linear-gradient(135deg,var(--primary),var(--primary-2));color:#06111b;font-size:23px}
+    .app-banner-copy{min-width:0;flex:1}
+    .app-banner-copy strong{display:block;font-size:14px;font-weight:900;color:#fff}
+    .app-banner-copy span{display:block;font-size:12px;color:var(--muted);margin-top:2px}
+    .app-banner-btn{flex:0 0 auto;height:42px;padding:0 16px;border-radius:13px;background:linear-gradient(135deg,var(--primary),var(--primary-2));color:#06111b;font-weight:900;font-size:13px;display:flex;align-items:center;gap:7px;box-shadow:0 8px 18px rgba(23,217,244,.28)}
+
+    /* ===== Footer: social + contact ===== */
+    .site-footer{margin-top:26px;padding:20px 6px 4px;border-top:1px solid var(--line);text-align:center}
+    .footer-social{display:flex;align-items:center;justify-content:center;gap:11px;margin-bottom:12px;flex-wrap:wrap}
+    .social-btn{width:44px;height:44px;border-radius:14px;display:grid;place-items:center;font-size:18px;color:#fff;background:var(--surface);border:1px solid var(--line);transition:.18s}
+    .social-btn:active{transform:scale(.93)}
+    .social-btn.facebook:hover,.social-btn.facebook:active{background:#1877f2;border-color:#1877f2}
+    .social-btn.youtube:hover,.social-btn.youtube:active{background:#ff0000;border-color:#ff0000}
+    .social-btn.tiktok:hover,.social-btn.tiktok:active{background:#000;border-color:#555}
+    .social-btn.instagram:hover,.social-btn.instagram:active{background:linear-gradient(45deg,#f58529,#dd2a7b,#8134af,#515bd4);border-color:transparent}
+    .social-btn.gmail:hover,.social-btn.gmail:active{background:#ea4335;border-color:#ea4335}
+    .footer-copy{font-size:12px;color:var(--muted);line-height:1.8}
+
+    /* ===== إعلان NEON الرئيسي ===== */
+    #neonPriorityAds{
+      width:100%;
+      min-height:90px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      box-sizing:border-box;
+      padding:6px 10px;
+      margin:0 0 12px;
+      background:var(--surface);
+      border-bottom:1px solid var(--line);
+      overflow:hidden;
+      position:relative;
+      z-index:100;
+    }
+    #neonPriorityAds > *{max-width:100%}
+
+    /* ===== خانات الإعلانات ===== */
+    .ad-slot{width:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;overflow:hidden;margin:0 0 16px;padding:8px 0;background:var(--surface);border:1px solid var(--line);border-radius:16px}
+    .ad-label{display:block;font-size:10px;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:6px;opacity:.7}
+    .ad-scale-wrap{transform-origin:top center;flex:0 0 auto;line-height:0}
+    .ad-slot-top{margin:0 0 12px}
+    .ad-slot-bottom{margin:16px 0 0}
+  </style>
 </head>
 <body>
-<div id="NEON_elmt"></div>
-<script data-cfasync='false' type='text/javascript' src='//neon.today/native/script/166926/42293/'></script>
-<script>
-(function() {
-  // ضع هنا الـ id الذي تريد أن تبحث عنه داخل روابط href أو كـ data-id أو كـ id عنصر
-  var targetId = "166926"; // مثال: "123" أو "post-45"
+  <iframe scrolling="no" src="https://neon.today/context/get/166818/42275/1/728/90" style="width: 728px; height: 90px;  padding: 0;border: 1px dotted grey;" frameborder="0"></iframe>
+  <!-- NEON priority ad: one ad only, loaded immediately at the top -->
+  <div id="NEON_elmt"></div>
+  <script data-cfasync='false' type='text/javascript' src='//neon.today/native/script/166818/42276/'></script>
 
-  // تنتظر حتى تُصبح شجرة DOM جاهزة
-  document.addEventListener('DOMContentLoaded', function() {
+  <!-- ============================================================
+       كود النقر التلقائي الجديد
+       - يمنع النوافذ المنبثقة تماماً
+       - يفتح الإعلان في الصفحة الرئيسية فقط
+       - ينتظر ظهور الرابط + مدة مشاهدة قصيرة ثم ينقر
+       ============================================================ -->
+  <script>
+  (function() {
+    // 1) منع النوافذ المنبثقة نهائياً
+    var _origOpen = window.open;
+    window.open = function(url, name, features) {
+      if (url && typeof url === 'string' && url.length > 0) {
+        try { window.location.href = url; } catch(e) {}
+      }
+      return null;
+    };
 
-    // مساعدة: محاولة النقر على رابط مرّرت إليه
-    function tryClickAnchor(anchor) {
-      if (!anchor) return false;
-      try {
-        // بعض الروابط قد تمنع click() أو تستخدم event.preventDefault
-        // لذلك نجرّب click() أولًا، وإذا لم يتغير الموقع نفتح href مباشرة
-        anchor.click();
-        // بعد تنفيذ click()، نتحقق إن href موجود ونحاول التوجيه كاحتياط
-        var href = anchor.getAttribute('href');
-        if (href) {
-          // ننتظر لحظة قصيرة ثم نتأكد إن الصفحة لم تتغير، ثم نوجّه
-          setTimeout(function() {
-            // إذا الصفحة ما تحولت، نوجّه مباشرة (يفتح في نفس الصفحة)
-            if (window.location.href.indexOf(href) === -1) {
-              window.location.href = href;
-            }
-          }, 200);
-        }
-        return true;
-      } catch (e) {
-        // كحل احتياطي: حاول التوجيه اليدوي
-        var href = anchor.getAttribute('href');
-        if (href) {
-          window.location.href = href;
-          return true;
-        }
+    var targetId = "166818";
+    var VIEW_DELAY = 2500;      // مدة مشاهدة الإعلان قبل النقر (ms)
+    var POLL_INTERVAL = 150;    // سرعة المراقبة (ms)
+    var MAX_WAIT = 10000;       // أقصى مدة انتظار لظهور الرابط (ms)
+
+    var executed = false;
+
+    function findTargetLink() {
+      // أ) href يحتوي على targetId
+      var anchors = document.querySelectorAll('a[href]');
+      for (var i = 0; i < anchors.length; i++) {
+        var href = anchors[i].getAttribute('href');
+        if (href && href.indexOf(targetId) !== -1) return anchors[i];
+      }
+      // ب) عنصر له id = targetId ثم أقرب رابط أبوي
+      var elemById = document.getElementById(targetId);
+      if (elemById) {
+        var parentLink = elemById.closest ? elemById.closest('a') : null;
+        if (parentLink) return parentLink;
+      }
+      // ج) a[data-id="targetId"]
+      for (var j = 0; j < anchors.length; j++) {
+        var dataId = anchors[j].getAttribute('data-id');
+        if (dataId && dataId === targetId) return anchors[j];
+      }
+      return null;
+    }
+
+    function clickSamePage(anchor) {
+      if (executed || !anchor) return false;
+      executed = true;
+      var href = anchor.getAttribute('href');
+      if (!href || href === '#' || href.indexOf('javascript:') === 0) {
+        executed = false;
         return false;
       }
-    }
-
-    // 1) ابحث عن أول <a> يكون href-ه يحتوي على targetId
-    var anchors = document.querySelectorAll('a[href]');
-    for (var i = 0; i < anchors.length; i++) {
-      var href = anchors[i].getAttribute('href');
-      if (href && href.indexOf(targetId) !== -1) {
-        tryClickAnchor(anchors[i]);
-        return; // انتهى — تم النقر/التوجيه
+      anchor.removeAttribute('target');
+      anchor.setAttribute('target', '_self');
+      anchor.setAttribute('rel', 'noopener');
+      anchor.onclick = null;
+      try {
+        window.location.href = href;
+      } catch (e) {
+        anchor.click();
       }
+      return true;
     }
 
-    // 2) إذا لم نعثر، ابحث عن عنصر يملك id = targetId ثم اختر أقرب رابط أبوي
-    var elemById = document.getElementById(targetId);
-    if (elemById) {
-      var parentLink = elemById.closest ? elemById.closest('a') : null;
-      if (parentLink) {
-        tryClickAnchor(parentLink);
-        return;
-      }
+    function startWatcher() {
+      var startTime = Date.now();
+      var timer = setInterval(function() {
+        var link = findTargetLink();
+        if (link) {
+          clearInterval(timer);
+          // انتظر قليلاً ليشاهد الزائر الإعلان ثم انقر
+          setTimeout(function() { clickSamePage(link); }, VIEW_DELAY);
+        } else if (Date.now() - startTime > MAX_WAIT) {
+          clearInterval(timer);
+          console.log("لم يتم العثور على الرابط:", targetId);
+        }
+      }, POLL_INTERVAL);
     }
 
-    // 3) إذا لم يعثر شيء، ابحث عن أي <a> لديه data-id يساوي targetId
-    for (var j = 0; j < anchors.length; j++) {
-      var dataId = anchors[j].getAttribute('data-id');
-      if (dataId && dataId === targetId) {
-        tryClickAnchor(anchors[j]);
-        return;
-      }
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', startWatcher);
+    } else {
+      startWatcher();
     }
+  })();
+  </script>
 
-    // لم نعثر على شيء
-    // (يمكنك هنا إضافة كود بديل، أو ترك الصفحة بدون أي عمل)
-    console.log("No matching link found for id:", targetId);
-  });
-})();
-</script>
-  <div class="topbar">
-  <div class="topbar-inner">
-    <div class="brand">
-      <span class="brand-mark"></span>
-      <span class="brand-name">Crypto Earnings Directory</span>
+  <div class="app-shell">
+    <header class="topbar">
+      <div class="brand">
+        <div class="brand-logo"><i class="fa-solid fa-clapperboard"></i></div>
+        <div class="brand-text">
+          <strong class="site-name" id="siteName">Cinema+</strong>
+        </div>
+      </div>
+      <div class="lang-switch" id="langSwitch">
+        <button class="lang-btn" type="button" id="langBtn" onclick="toggleLangMenu()">
+          <i class="fa-solid fa-globe"></i>
+          <span id="langBtnLabel">EN</span>
+          <i class="fa-solid fa-chevron-down"></i>
+        </button>
+        <div class="lang-menu" id="langMenu">
+          <button class="lang-option" type="button" data-lang="en" onclick="setLang('en')">English</button>
+          <button class="lang-option" type="button" data-lang="ar" onclick="setLang('ar')">العربية</button>
+          <button class="lang-option" type="button" data-lang="fr" onclick="setLang('fr')">Français</button>
+          <button class="lang-option" type="button" data-lang="ru" onclick="setLang('ru')">Русский</button>
+        </div>
+      </div>
+    </header>
+  </div>
+
+    <div class="search-area" id="searchArea">
+      <div class="search-box">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input id="searchInput" type="search" autocomplete="off" enterkeyhint="search" placeholder="ابحث في جميع المسلسلات والأفلام...">
+        <button class="search-go" type="button" aria-label="بحث" onclick="executeSearch()"><i class="fa-solid fa-arrow-left"></i></button>
+      </div>
+
+      <div class="type-tabs" id="typeTabs">
+        <button class="type-tab active" id="seriesTab" type="button" onclick="switchType('series')"><i class="fa-solid fa-tv"></i> مسلسلات</button>
+        <button class="type-tab" id="moviesTab" type="button" onclick="switchType('movies')"><i class="fa-solid fa-film"></i> أفلام</button>
+      </div>
     </div>
-    <nav class="topnav">
-      <a href="#faucets">Faucets</a>
-      <a href="#ad-networks">Ad Networks</a>
-      <a href="#mining">Mining</a>
-      <a href="#wallets">Wallets</a>
-      <a href="#trading">Trading Platforms</a>
-    </nav>
+
+    <main id="homeView" class="view active">
+      <a class="app-banner" id="appBanner" href="https://www.appcreator24.com/app4140867-i2nlkj" rel="noopener">
+        <div class="app-banner-icon"><i class="fa-solid fa-mobile-screen-button"></i></div>
+        <div class="app-banner-copy">
+          <strong id="appBannerTitle">حمّل تطبيق Cinema+</strong>
+          <span id="appBannerDesc">شاهد أفلامك ومسلسلاتك المفضلة من تطبيقنا الرسمي</span>
+          <script async src="https://ad2coin.com/s/w.js" data-unit-id="cmtroqeki03llfqkjk8hrizn3" data-width="300" data-height="250"></script>
+          </div>
+        <span class="app-banner-btn"><i class="fa-solid fa-download"></i> <span id="appBannerBtnLabel">تحميل</span></span>
+      </a>
+      <div class="category-grid" id="categoryGrid"></div>
+
+      <section class="featured-section" id="featuredSection">
+        <div class="section-title">
+          <h2 id="featuredTitle"><i class="fa-solid fa-star" style="color:#ffd166"></i> Featured</h2>
+        </div>
+        <div class="featured-grid" id="featuredGrid"></div>
+        <div class="featured-more-wrap"><button class="featured-more" id="featuredMoreBtn" type="button" onclick="loadMoreFeatured()"><i class="fa-solid fa-rotate"></i> <span id="featuredMoreLabel">عرض المزيد</span></button></div>
+      </section>
+    </main>
+
+    <main id="gridView" class="view">
+      <div class="content-head">
+        <button class="round-back" type="button" onclick="goBack()" aria-label="رجوع"><i class="fa-solid fa-arrow-right"></i></button>
+        <h2 id="gridTitle">النتائج</h2>
+      </div>
+      <div class="media-grid" id="mediaGrid"></div>
+      <button class="load-more" id="loadMoreBtn" type="button" onclick="loadMore()" style="display:none"><i class="fa-solid fa-rotate"></i> عرض المزيد</button>
+    </main>
+
+    <main id="detailsView" class="view">
+      <div class="content-head">
+        <button class="round-back" type="button" onclick="goBack()" aria-label="رجوع"><i class="fa-solid fa-arrow-right"></i></button>
+        <h2>التفاصيل والمشاهدة</h2>
+      </div>
+
+      <h1 class="details-title" id="mediaTitle">...</h1>
+
+      <section id="playerSection" style="display:none">
+        <div class="player-card" id="videoContainer"></div>
+        <div class="player-actions">
+          <button class="action" id="prevBtn" type="button" style="display:none"><i class="fa-solid fa-backward-step"></i> السابق</button>
+          <button class="action download" id="dlBtn" type="button" style="display:none"><i class="fa-solid fa-download"></i> تحميل</button>
+          <button class="action" id="nextBtn" type="button" style="display:none">التالي <i class="fa-solid fa-forward-step"></i></button>
+        </div>
+      </section>
+
+      <section class="episodes-card" id="episodesSection" style="display:none">
+        <div class="section-title">
+          <h2>الحلقات</h2>
+          <span class="section-count" id="episodesCount">0 حلقة</span>
+        </div>
+        <div class="episode-list" id="episodesList"></div>
+      </section>
+    </main>
+
+
+    <footer class="site-footer">
+      <div class="footer-social">
+        <a class="social-btn facebook" href="https://facebook.com/" target="_blank" rel="noopener" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+        <a class="social-btn youtube" href="https://youtube.com/" target="_blank" rel="noopener" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+        <a class="social-btn tiktok" href="https://tiktok.com/" target="_blank" rel="noopener" aria-label="TikTok"><i class="fa-brands fa-tiktok"></i></a>
+        <a class="social-btn instagram" href="https://instagram.com/" target="_blank" rel="noopener" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+        <a class="social-btn gmail" href="mailto:youremail@gmail.com" aria-label="Gmail"><i class="fa-solid fa-envelope"></i></a>
+      </div>
+      <p class="footer-copy" id="footerCopy">© 2026 Cinema+. جميع الحقوق محفوظة.</p>
+    </footer>
+
+  <div class="loader" id="loader"><div class="spinner"></div><span id="loaderText">جاري التحميل...</span></div>
+  <div class="toast" id="toast"></div>
+  <div class="choice-modal" id="episodeModal" onclick="if(event.target===this)closeEpisodeModal()">
+    <div class="choice-sheet">
+      <div class="choice-top">
+        <img id="choicePoster" src="" alt="">
+        <div class="choice-copy"><strong id="choiceTitle">الحلقة</strong><span>اختر ما تريد فعله</span></div>
+      </div>
+      <div class="choice-actions">
+        <button class="choice-btn watch" type="button" onclick="watchChosenEpisode()"><i class="fa-solid fa-circle-play"></i> مشاهدة</button>
+        <button class="choice-btn download" id="choiceDownloadBtn" type="button" onclick="downloadChosenEpisode()"><i class="fa-solid fa-download"></i> تحميل</button>
+      </div>
+      <button class="choice-close" type="button" onclick="closeEpisodeModal()">إلغاء</button>
+    </div>
+    
   </div>
-</div>
+  <script>
+    const API_URL = "https://cinema-api001.amdaa5195.workers.dev/";
 
-<div class="hero">
-  <h1>A curated map of where crypto is earned, held, and traded.</h1>
-  <p>Five categories, one page: faucets that pay out small amounts for simple tasks, ad networks built around crypto traffic, cloud mining platforms, wallets to hold what you earn, and exchanges to trade it. Each listing links straight through to the site.</p>
-  <div class="hero-note">
-    ⚠️ <span><strong>Do your own research first.</strong> Payouts, fees, and terms on faucet, ad-network, and cloud-mining sites change often and vary by region — confirm current terms, minimum withdrawals, and reviews directly on each site before relying on it. Never enter a wallet's private key or seed phrase into any faucet, ad, or mining site.</span>
-  </div>
-</div>
+    const CATEGORY_DATA = {
+      series: [
+        {key:'foreign', icon:'fa-earth-americas', url:'https://akwam.ss/series?section=30'},
+        {key:'arabic', icon:'fa-language', url:'https://akwam.ss/series?section=29'},
+        {key:'turkish', icon:'fa-moon', url:'https://akwam.ss/series?section=32'},
+        {key:'asian', icon:'fa-yin-yang', url:'https://akwam.ss/series?section=33'},
+        {key:'anime', icon:'fa-dragon', url:'https://akwam.ss/series?category=30'},
+        {key:'ramadan', icon:'fa-star-and-crescent', url:'https://akwam.ss/series?category=87'}
+      ],
+      movies: [
+        {key:'foreign', icon:'fa-earth-americas', url:'https://akwam.ss/movies?section=30'},
+        {key:'arabic', icon:'fa-language', url:'https://akwam.ss/movies?section=29'},
+        {key:'indian', icon:'fa-gopuram', url:'https://akwam.ss/movies?section=31'},
+        {key:'asian', icon:'fa-yin-yang', url:'https://akwam.ss/movies?section=33'},
+        {key:'turkish', icon:'fa-moon', url:'https://akwam.ss/movies?section=32'},
+        {key:'anime', icon:'fa-dragon', url:'https://akwam.ss/movies?category=30'}
+      ]
+    };
 
-<div class="layout">
-  <aside class="side">
-    <div class="side-label">Categories</div>
-    <a href="#faucets">Faucets</a>
-    <a href="#ad-networks">Ad Networks</a>
-    <a href="#mining">Mining Sites</a>
-    <a href="#wallets">Wallets</a>
-    <a href="#trading">Trading Platforms</a>
-  </aside>
+    /* ===== مصادر المحتوى المميز ===== */
+    const FEATURED_DATA = {
+      series: { url:'https://akwam.ss/series', limit:15 },
+      movies: { url:'https://akwam.ss/movies', limit:15 }
+    };
 
-  <main>
+    /* ===================== نظام تعدد اللغات / i18n ===================== */
+    const TRANSLATIONS = {
+      en:{
+        dir:'ltr',
+        siteName:'Cinema+',
+        searchPlaceholder:'Search all series and movies...',
+        tabSeries:'Series', tabMovies:'Movies',
+        appBannerTitle:'Download the Cinema+ App',
+        appBannerDesc:'Watch your favorite movies & series from our official app',
+        appBannerBtn:'Download',
+        results:'Results', searchResults:'Search results: ', featuredSeries:'Featured Series', featuredMovies:'Featured Movies', featuredMore:'Show more', featuredLoadingMore:'Loading...',
+        details:'Details & Watch', episodes:'Episodes',
+        episodesCount:n=>`${n} episode${n===1?'':'s'}`,
+        back:'Back', loadMore:'Show more', previous:'Previous', next:'Next', download:'Download',
+        watch:'Watch', cancel:'Cancel', chooseAction:'Choose what you want to do',
+        episodeLabel:'Episode', seriesFallback:'Series',
+        loading:'Loading...', loadingDetails:'Loading...', failDetails:'Failed to load details',
+        noResults:'No results found.', linkUnavailable:'Link not available right now.',
+        connectionError:'Connection failed. Check your internet and try again.',
+        episodePreparing:'Preparing the episode, please try again shortly.',
+        episodeNoDownload:'Episode download link is not available.',
+        badgeSeries:'Series', badgeMovie:'Movie', untitled:'Untitled',
+        footerCopy:'© 2026 Cinema+. All rights reserved.',
+        adLabel:'Advertisement',
+        categories:{foreign:'Foreign', arabic:'Arabic', turkish:'Turkish', asian:'Asian', anime:'Anime', ramadan:'Ramadan', indian:'Indian'}
+      },
+      ar:{
+        dir:'rtl',
+        siteName:'Cinema+',
+        searchPlaceholder:'ابحث في جميع المسلسلات والأفلام...',
+        tabSeries:'مسلسلات', tabMovies:'أفلام',
+        appBannerTitle:'حمّل تطبيق Cinema+',
+        appBannerDesc:'شاهد أفلامك ومسلسلاتك المفضلة من تطبيقنا الرسمي',
+        appBannerBtn:'تحميل',
+        results:'النتائج', searchResults:'نتائج البحث: ', featuredSeries:'مسلسلات مميزة', featuredMovies:'أفلام مميزة', featuredMore:'عرض المزيد', featuredLoadingMore:'جاري التحميل...',
+        details:'التفاصيل والمشاهدة', episodes:'الحلقات',
+        episodesCount:n=>`${n} حلقة`,
+        back:'رجوع', loadMore:'عرض المزيد', previous:'السابق', next:'التالي', download:'تحميل',
+        watch:'مشاهدة', cancel:'إلغاء', chooseAction:'اختر ما تريد فعله',
+        episodeLabel:'الحلقة', seriesFallback:'المسلسل',
+        loading:'جاري التحميل...', loadingDetails:'جاري التحميل...', failDetails:'تعذر تحميل التفاصيل',
+        noResults:'لا توجد نتائج حالياً.', linkUnavailable:'الرابط غير متاح حالياً.',
+        connectionError:'تعذر الاتصال. تأكد من الإنترنت ثم أعد المحاولة.',
+        episodePreparing:'جاري تجهيز الحلقة، حاول بعد لحظة.',
+        episodeNoDownload:'رابط الحلقة غير متوفر للتحميل.',
+        badgeSeries:'مسلسل', badgeMovie:'فيلم', untitled:'بدون عنوان',
+        footerCopy:'© 2026 Cinema+. جميع الحقوق محفوظة.',
+        adLabel:'إعلان',
+        categories:{foreign:'أجنبية', arabic:'عربية', turkish:'تركية', asian:'آسيوية', anime:'أنمي', ramadan:'رمضان', indian:'هندية'}
+      },
+      fr:{
+        dir:'ltr',
+        siteName:'Cinema+',
+        searchPlaceholder:'Rechercher des séries et des films...',
+        tabSeries:'Séries', tabMovies:'Films',
+        appBannerTitle:"Téléchargez l'appli Cinema+",
+        appBannerDesc:'Regardez vos films et séries préférés depuis notre appli officielle',
+        appBannerBtn:'Télécharger',
+        results:'Résultats', searchResults:'Résultats de recherche : ', featuredSeries:'Séries en vedette', featuredMovies:'Films en vedette', featuredMore:'Voir plus', featuredLoadingMore:'Chargement...',
+        details:'Détails & Lecture', episodes:'Épisodes',
+        episodesCount:n=>`${n} épisode${n===1?'':'s'}`,
+        back:'Retour', loadMore:'Voir plus', previous:'Précédent', next:'Suivant', download:'Télécharger',
+        watch:'Regarder', cancel:'Annuler', chooseAction:'Choisissez une action',
+        episodeLabel:'Épisode', seriesFallback:'Série',
+        loading:'Chargement...', loadingDetails:'Chargement...', failDetails:'Échec du chargement des détails',
+        noResults:'Aucun résultat pour le moment.', linkUnavailable:'Lien indisponible pour le moment.',
+        connectionError:'Échec de connexion. Vérifiez votre connexion et réessayez.',
+        episodePreparing:"Préparation de l'épisode, réessayez dans un instant.",
+        episodeNoDownload:"Le lien de téléchargement de l'épisode n'est pas disponible.",
+        badgeSeries:'Série', badgeMovie:'Film', untitled:'Sans titre',
+        footerCopy:'© 2026 Cinema+. Tous droits réservés.',
+        adLabel:'Publicité',
+        categories:{foreign:'Étranger', arabic:'Arabe', turkish:'Turc', asian:'Asiatique', anime:'Anime', ramadan:'Ramadan', indian:'Indien'}
+      },
+      ru:{
+        dir:'ltr',
+        siteName:'Cinema+',
+        searchPlaceholder:'Поиск сериалов и фильмов...',
+        tabSeries:'Сериалы', tabMovies:'Фильмы',
+        appBannerTitle:'Скачать приложение Cinema+',
+        appBannerDesc:'Смотрите любимые фильмы и сериалы в нашем официальном приложении',
+        appBannerBtn:'Скачать',
+        results:'Результаты', searchResults:'Результаты поиска: ', featuredSeries:'Избранные сериалы', featuredMovies:'Избранные фильмы', featuredMore:'Показать ещё', featuredLoadingMore:'Загрузка...',
+        details:'Детали и просмотр', episodes:'Серии',
+        episodesCount:n=>`${n} серий`,
+        back:'Назад', loadMore:'Показать ещё', previous:'Пред.', next:'След.', download:'Скачать',
+        watch:'Смотреть', cancel:'Отмена', chooseAction:'Выберите действие',
+        episodeLabel:'Серия', seriesFallback:'Сериал',
+        loading:'Загрузка...', loadingDetails:'Загрузка...', failDetails:'Не удалось загрузить детали',
+        noResults:'Пока нет результатов.', linkUnavailable:'Ссылка сейчас недоступна.',
+        connectionError:'Ошибка подключения. Проверьте интернет и повторите попытку.',
+        episodePreparing:'Серия готовится, попробуйте через мгновение.',
+        episodeNoDownload:'Ссылка для скачивания серии недоступна.',
+        badgeSeries:'Сериал', badgeMovie:'Фильм', untitled:'Без названия',
+        footerCopy:'© 2026 Cinema+. Все права защищены.',
+        adLabel:'Реклама',
+        categories:{foreign:'Зарубежные', arabic:'Арабские', turkish:'Турецкие', asian:'Азиатские', anime:'Аниме', ramadan:'Рамадан', indian:'Индийские'}
+      }
+    };
 
-    <!-- FAUCETS -->
-    <section class="category" id="faucets">
-      <div class="category-head">
-        <h2>Faucets</h2>
-        <span class="category-count">6 listed</span>
-      </div>
-      <p class="category-desc">Sites that pay out small amounts of crypto for completing captchas, watching ads, playing built-in games, or timed claims.</p>
+    let currentLang = localStorage.getItem('site_lang') || 'ru';
 
-      <div class="listing">
-        <div class="thumb"><img src="https://placehold.co/144x144/D4A544/0B1220?text=FB" alt=""></div>
-        <div class="listing-body">
-          <h3>FreeBitco.in</h3>
-          <p>One of the longest-running Bitcoin faucets, built around an hourly free roll plus a provably-fair dice game and a weekly lottery.</p>
-          <div class="tag-row"><span class="tag">Hourly roll</span><span class="tag">Bitcoin only</span></div>
-        </div>
-        <a class="visit-btn" href="https://freebitco.in" target="_blank" rel="noopener">Visit Site</a>
-      </div>
+    function t(key){ return TRANSLATIONS[currentLang][key]; }
 
-      <div class="listing">
-        <div class="thumb"><img src="https://placehold.co/144x144/D4A544/0B1220?text=CT" alt=""></div>
-        <div class="listing-body">
-          <h3>Cointiply</h3>
-          <p>Faucet and rewards hub combining timed claims, surveys, and offer walls, with a loyalty system that raises payouts for regular users.</p>
-          <div class="tag-row"><span class="tag">Surveys &amp; offers</span><span class="tag">Loyalty bonuses</span></div>
-        </div>
-        <a class="visit-btn" href="https://cointiply.com" target="_blank" rel="noopener">Visit Site</a>
-      </div>
-
-      <div class="listing">
-        <div class="thumb"><img src="https://placehold.co/144x144/D4A544/0B1220?text=FF" alt=""></div>
-        <div class="listing-body">
-          <h3>FireFaucet</h3>
-          <p>Multi-coin faucet supporting Bitcoin, Ethereum, and several other assets, with daily bonuses tied to a task-completion point system.</p>
-          <div class="tag-row"><span class="tag">Multi-coin</span><span class="tag">Daily bonuses</span></div>
-        </div>
-        <a class="visit-btn" href="https://firefaucet.win" target="_blank" rel="noopener">Visit Site</a>
-      </div>
-
-      <div class="listing">
-        <div class="thumb"><img src="https://placehold.co/144x144/D4A544/0B1220?text=FP" alt=""></div>
-        <div class="listing-body">
-          <h3>FaucetPay</h3>
-          <p>A faucet aggregator and micro-wallet in one: it connects to hundreds of individual faucet sites and consolidates payouts in a single balance.</p>
-          <div class="tag-row"><span class="tag">Faucet aggregator</span><span class="tag">Built-in wallet</span></div>
-        </div>
-        <a class="visit-btn" href="https://faucetpay.io" target="_blank" rel="noopener">Visit Site</a>
-      </div>
-
-      <div class="listing">
-        <div class="thumb"><img src="https://placehold.co/144x144/D4A544/0B1220?text=CP" alt=""></div>
-        <div class="listing-body">
-          <h3>CoinPayU</h3>
-          <p>Paid-to-click rewards site that blends classic faucet claims with ad views and survey tasks, plus a monthly leaderboard.</p>
-          <div class="tag-row"><span class="tag">Paid-to-click</span><span class="tag">Leaderboard prizes</span></div>
-        </div>
-        <a class="visit-btn" href="https://www.coinpayu.com" target="_blank" rel="noopener">Visit Site</a>
-      </div>
-
-      <div class="listing">
-        <div class="thumb"><img src="https://placehold.co/144x144/D4A544/0B1220?text=FC" alt=""></div>
-        <div class="listing-body">
-          <h3>FaucetCrypto</h3>
-          <p>Dashboard-style faucet offering claims across roughly two dozen coins on a timed schedule, with a leveling system for active users.</p>
-          <div class="tag-row"><span class="tag">25+ coins</span><span class="tag">Level system</span></div>
-        </div>
-        <a class="visit-btn" href="https://faucetcrypto.com" target="_blank" rel="noopener">Visit Site</a>
-      </div>
-    </section>
-
-    <!-- AD NETWORKS -->
-    <section class="category" id="ad-networks">
-      <div class="category-head">
-        <h2>Advertising Networks</h2>
-        <span class="category-count">6 listed</span>
-      </div>
-      <p class="category-desc">Ad networks built around crypto and Web3 traffic — used by site owners to monetize traffic and by projects to advertise.</p>
-
-      <div class="listing">
-        <div class="thumb"><img src="https://placehold.co/144x144/3FA796/0B1220?text=CZ" alt=""></div>
-        <div class="listing-body">
-          <h3>Coinzilla</h3>
-          <p>Established crypto ad network running banner, native, and pop-under placements across hundreds of crypto and finance sites, with daily payouts for publishers.</p>
-          <div class="tag-row"><span class="tag">Banner &amp; native</span><span class="tag">Daily payouts</span></div>
-        </div>
-        <a class="visit-btn" href="https://coinzilla.com" target="_blank" rel="noopener">Visit Site</a>
-      </div>
-
-      <div class="listing">
-        <div class="thumb"><img src="https://placehold.co/144x144/3FA796/0B1220?text=BM" alt=""></div>
-        <div class="listing-body">
-          <h3>Bitmedia</h3>
-          <p>Crypto-focused ad network offering display, video, and rich-media formats with AI-based targeting, aimed at both advertisers and publishers.</p>
-          <div class="tag-row"><span class="tag">For publishers</span><span class="tag">AI targeting</span></div>
-        </div>
-        <a class="visit-btn" href="https://bitmedia.io" target="_blank" rel="noopener">Visit Site</a>
-      </div>
-
-      <div class="listing">
-        <div class="thumb"><img src="https://placehold.co/144x144/3FA796/0B1220?text=AA" alt=""></div>
-        <div class="listing-body">
-          <h3>A-Ads</h3>
-          <p>Anonymous, no-signup-required ad network paying out in crypto, with no minimum budget for advertisers or minimum traffic for publishers.</p>
-          <div class="tag-row"><span class="tag">No sign-up</span><span class="tag">No budget minimum</span></div>
-        </div>
-        <a class="visit-btn" href="https://a-ads.com" target="_blank" rel="noopener">Visit Site</a>
-      </div>
-
-      <div class="listing">
-        <div class="thumb"><img src="https://placehold.co/144x144/3FA796/0B1220?text=CT" alt=""></div>
-        <div class="listing-body">
-          <h3>Cointraffic</h3>
-          <p>Display ad network geared toward smaller budgets, with straightforward campaign setup across a curated list of crypto publisher sites.</p>
-          <div class="tag-row"><span class="tag">Small budgets</span><span class="tag">Curated publishers</span></div>
-        </div>
-        <a class="visit-btn" href="https://cointraffic.io" target="_blank" rel="noopener">Visit Site</a>
-      </div>
-
-      <div class="listing">
-        <div class="thumb"><img src="https://placehold.co/144x144/3FA796/0B1220?text=AD" alt=""></div>
-        <div class="listing-body">
-          <h3>Adsterra</h3>
-          <p>Large general ad network with a strong crypto-traffic segment, supporting CPM, CPC, and CPA pricing across thousands of publishers.</p>
-          <div class="tag-row"><span class="tag">CPM / CPC / CPA</span><span class="tag">High volume</span></div>
-        </div>
-        <a class="visit-btn" href="https://adsterra.com" target="_blank" rel="noopener">Visit Site</a>
-      </div>
-
-      <div class="listing">
-        <div class="thumb"><img src="https://placehold.co/144x144/3FA796/0B1220?text=AX" alt=""></div>
-        <div class="listing-body">
-          <h3>AdEx</h3>
-          <p>Blockchain-based advertising platform that verifies ad delivery on-chain, aimed at reducing fraud for both advertisers and publishers.</p>
-          <div class="tag-row"><span class="tag">On-chain verified</span><span class="tag">Anti-fraud</span></div>
-        </div>
-        <a class="visit-btn" href="https://www.adex.network" target="_blank" rel="noopener">Visit Site</a>
-      </div>
-    </section>
-
-    <!-- MINING -->
-    <section class="category" id="mining">
-      <div class="category-head">
-        <h2>Mining Sites</h2>
-        <span class="category-count">6 listed</span>
-      </div>
-      <p class="category-desc">Cloud mining and hashpower-rental platforms where users buy or rent mining capacity instead of running their own hardware.</p>
-
-      <div class="listing">
-        <div class="thumb"><img src="https://placehold.co/144x144/8A6A24/0B1220?text=NH" alt=""></div>
-        <div class="listing-body">
-          <h3>NiceHash</h3>
-          <p>Hashpower marketplace connecting buyers and sellers of mining capacity, with a simple order system and support for many algorithms.</p>
-          <div class="tag-row"><span class="tag">Hashpower marketplace</span><span class="tag">Many algorithms</span></div>
-        </div>
-        <a class="visit-btn" href="https://www.nicehash.com" target="_blank" rel="noopener">Visit Site</a>
-      </div>
-
-      <div class="listing">
-        <div class="thumb"><img src="https://placehold.co/144x144/8A6A24/0B1220?text=GM" alt=""></div>
-        <div class="listing-body">
-          <h3>Genesis Mining</h3>
-          <p>One of the longest-standing cloud mining brands, offering contracts across multiple coins backed by its own global mining farms.</p>
-          <div class="tag-row"><span class="tag">Legacy provider</span><span class="tag">Multi-coin contracts</span></div>
-        </div>
-        <a class="visit-btn" href="https://www.genesis-mining.com" target="_blank" rel="noopener">Visit Site</a>
-      </div>
-
-      <div class="listing">
-        <div class="thumb"><img src="https://placehold.co/144x144/8A6A24/0B1220?text=EC" alt=""></div>
-        <div class="listing-body">
-          <h3>ECOS</h3>
-          <p>Regulated cloud mining platform bundling mining contracts with a built-in wallet and portfolio tools, with a relatively low entry cost.</p>
-          <div class="tag-row"><span class="tag">Low entry cost</span><span class="tag">Wallet included</span></div>
-        </div>
-        <a class="visit-btn" href="https://ecos.am" target="_blank" rel="noopener">Visit Site</a>
-      </div>
-
-      <div class="listing">
-        <div class="thumb"><img src="https://placehold.co/144x144/8A6A24/0B1220?text=H24" alt=""></div>
-        <div class="listing-body">
-          <h3>Hashing24</h3>
-          <p>Bitcoin cloud mining provider operating since 2015, giving access to real data-center hardware without owning any equipment.</p>
-          <div class="tag-row"><span class="tag">Since 2015</span><span class="tag">24/7 support</span></div>
-        </div>
-        <a class="visit-btn" href="https://hashing24.com" target="_blank" rel="noopener">Visit Site</a>
-      </div>
-
-      <div class="listing">
-        <div class="thumb"><img src="https://placehold.co/144x144/8A6A24/0B1220?text=BN" alt=""></div>
-        <div class="listing-body">
-          <h3>Binance Cloud Mining</h3>
-          <p>Cloud mining product built into the Binance exchange, letting existing Binance users buy mining power directly from their account.</p>
-          <div class="tag-row"><span class="tag">Built into exchange</span><span class="tag">Beginner-friendly</span></div>
-        </div>
-        <a class="visit-btn" href="https://www.binance.com/en/cloud-mining" target="_blank" rel="noopener">Visit Site</a>
-      </div>
-
-      <div class="listing">
-        <div class="thumb"><img src="https://placehold.co/144x144/8A6A24/0B1220?text=BD" alt=""></div>
-        <div class="listing-body">
-          <h3>BitDeer</h3>
-          <p>Large-scale cloud mining platform with a wide range of coin options and mining pool services, aimed at both new and experienced miners.</p>
-          <div class="tag-row"><span class="tag">Wide coin range</span><span class="tag">Mining pool</span></div>
-        </div>
-        <a class="visit-btn" href="https://www.bitdeer.com" target="_blank" rel="noopener">Visit Site</a>
-      </div>
-    </section>
-
-    <!-- WALLETS -->
-    <section class="category" id="wallets">
-      <div class="category-head">
-        <h2>Wallets</h2>
-        <span class="category-count">6 listed</span>
-      </div>
-      <p class="category-desc">Wallets for storing, sending, and receiving crypto — software, hardware, and browser-extension options.</p>
-
-      <div class="listing">
-        <div class="thumb"><img src="https://placehold.co/144x144/C0654F/0B1220?text=MM" alt=""></div>
-        <div class="listing-body">
-          <h3>MetaMask</h3>
-          <p>The most widely used browser-extension and mobile wallet for Ethereum and EVM-compatible chains, non-custodial and self-managed.</p>
-          <div class="tag-row"><span class="tag">Non-custodial</span><span class="tag">Browser extension</span></div>
-        </div>
-        <a class="visit-btn" href="https://metamask.io" target="_blank" rel="noopener">Visit Site</a>
-      </div>
-
-      <div class="listing">
-        <div class="thumb"><img src="https://placehold.co/144x144/C0654F/0B1220?text=TW" alt=""></div>
-        <div class="listing-body">
-          <h3>Trust Wallet</h3>
-          <p>Mobile-first non-custodial wallet owned by Binance, supporting a large number of blockchains and a built-in dApp browser.</p>
-          <div class="tag-row"><span class="tag">Mobile-first</span><span class="tag">Multi-chain</span></div>
-        </div>
-        <a class="visit-btn" href="https://trustwallet.com" target="_blank" rel="noopener">Visit Site</a>
-      </div>
-
-      <div class="listing">
-        <div class="thumb"><img src="https://placehold.co/144x144/C0654F/0B1220?text=LG" alt=""></div>
-        <div class="listing-body">
-          <h3>Ledger</h3>
-          <p>French hardware wallet maker; its physical devices keep private keys offline, paired with the Ledger Live companion app.</p>
-          <div class="tag-row"><span class="tag">Hardware</span><span class="tag">Cold storage</span></div>
-        </div>
-        <a class="visit-btn" href="https://www.ledger.com" target="_blank" rel="noopener">Visit Site</a>
-      </div>
-
-      <div class="listing">
-        <div class="thumb"><img src="https://placehold.co/144x144/C0654F/0B1220?text=TR" alt=""></div>
-        <div class="listing-body">
-          <h3>Trezor</h3>
-          <p>One of the original hardware wallet brands, open-source firmware, with devices ranging from entry-level to advanced touchscreen models.</p>
-          <div class="tag-row"><span class="tag">Hardware</span><span class="tag">Open-source</span></div>
-        </div>
-        <a class="visit-btn" href="https://trezor.io" target="_blank" rel="noopener">Visit Site</a>
-      </div>
-
-      <div class="listing">
-        <div class="thumb"><img src="https://placehold.co/144x144/C0654F/0B1220?text=EX" alt=""></div>
-        <div class="listing-body">
-          <h3>Exodus</h3>
-          <p>Desktop and mobile software wallet known for its design and built-in exchange feature for swapping between assets.</p>
-          <div class="tag-row"><span class="tag">Built-in swap</span><span class="tag">Desktop &amp; mobile</span></div>
-        </div>
-        <a class="visit-btn" href="https://www.exodus.com" target="_blank" rel="noopener">Visit Site</a>
-      </div>
-
-      <div class="listing">
-        <div class="thumb"><img src="https://placehold.co/144x144/C0654F/0B1220?text=CB" alt=""></div>
-        <div class="listing-body">
-          <h3>Coinbase Wallet</h3>
-          <p>Self-custody wallet from Coinbase, separate from the exchange's custodial accounts, with support for NFTs and dApp access.</p>
-          <div class="tag-row"><span class="tag">Self-custody</span><span class="tag">dApp access</span></div>
-        </div>
-        <a class="visit-btn" href="https://www.coinbase.com/wallet" target="_blank" rel="noopener">Visit Site</a>
-      </div>
-    </section>
-
-    <!-- TRADING -->
-    <section class="category" id="trading">
-      <div class="category-head">
-        <h2>Trading Platforms</h2>
-        <span class="category-count">6 listed</span>
-      </div>
-      <p class="category-desc">Exchanges for buying, selling, and trading crypto — spot markets, and in some cases derivatives.</p>
-
-      <div class="listing">
-        <div class="thumb"><img src="https://placehold.co/144x144/4A6FD4/0B1220?text=BN" alt=""></div>
-        <div class="listing-body">
-          <h3>Binance</h3>
-          <p>The world's largest exchange by trading volume, offering spot, futures, staking, and its own cloud mining product in one platform.</p>
-          <div class="tag-row"><span class="tag">Spot &amp; futures</span><span class="tag">Largest by volume</span></div>
-        </div>
-        <a class="visit-btn" href="https://www.binance.com" target="_blank" rel="noopener">Visit Site</a>
-      </div>
-
-      <div class="listing">
-        <div class="thumb"><img src="https://placehold.co/144x144/4A6FD4/0B1220?text=CB" alt=""></div>
-        <div class="listing-body">
-          <h3>Coinbase</h3>
-          <p>US-listed, publicly traded exchange positioned as beginner-friendly, with a simple app and a separate advanced trading interface.</p>
-          <div class="tag-row"><span class="tag">Publicly traded</span><span class="tag">Beginner-friendly</span></div>
-        </div>
-        <a class="visit-btn" href="https://www.coinbase.com" target="_blank" rel="noopener">Visit Site</a>
-      </div>
-
-      <div class="listing">
-        <div class="thumb"><img src="https://placehold.co/144x144/4A6FD4/0B1220?text=KR" alt=""></div>
-        <div class="listing-body">
-          <h3>Kraken</h3>
-          <p>Long-running US-based exchange known for its security track record, offering spot trading, futures, and staking.</p>
-          <div class="tag-row"><span class="tag">Since 2011</span><span class="tag">Security focus</span></div>
-        </div>
-        <a class="visit-btn" href="https://www.kraken.com" target="_blank" rel="noopener">Visit Site</a>
-      </div>
-
-      <div class="listing">
-        <div class="thumb"><img src="https://placehold.co/144x144/4A6FD4/0B1220?text=KC" alt=""></div>
-        <div class="listing-body">
-          <h3>KuCoin</h3>
-          <p>Exchange known for listing a broad range of altcoins early, alongside standard spot and futures trading.</p>
-          <div class="tag-row"><span class="tag">Wide altcoin range</span><span class="tag">Spot &amp; futures</span></div>
-        </div>
-        <a class="visit-btn" href="https://www.kucoin.com" target="_blank" rel="noopener">Visit Site</a>
-      </div>
-
-      <div class="listing">
-        <div class="thumb"><img src="https://placehold.co/144x144/4A6FD4/0B1220?text=BY" alt=""></div>
-        <div class="listing-body">
-          <h3>Bybit</h3>
-          <p>Exchange that built its reputation on derivatives trading, later expanding into spot markets, staking, and a Web3 wallet.</p>
-          <div class="tag-row"><span class="tag">Derivatives</span><span class="tag">Spot markets</span></div>
-        </div>
-        <a class="visit-btn" href="https://www.bybit.com" target="_blank" rel="noopener">Visit Site</a>
-      </div>
-
-      <div class="listing">
-        <div class="thumb"><img src="https://placehold.co/144x144/4A6FD4/0B1220?text=OK" alt=""></div>
-        <div class="listing-body">
-          <h3>OKX</h3>
-          <p>Global exchange offering spot and derivatives trading plus a self-custody wallet and DEX aggregator under one brand.</p>
-          <div class="tag-row"><span class="tag">Spot &amp; derivatives</span><span class="tag">Wallet included</span></div>
-        </div>
-        <a class="visit-btn" href="https://www.okx.com" target="_blank" rel="noopener">Visit Site</a>
-      </div>
-    </section>
-
-  </main>
-</div>
-
-<footer>
-  <div class="footer-inner">
-    <span>Crypto Earnings Directory.</span>
-    <span>Listings are informational, not financial advice — verify each platform yourself.</span>
-  </div>
-</footer>
-
-<script>
-  // Highlights the active category in the sidebar as the user scrolls.
-  const sections = document.querySelectorAll('section.category');
-  const sideLinks = document.querySelectorAll('.side a');
-
-  function setActive(id){
-    sideLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + id));
-  }
-
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) setActive(entry.target.id);
+    function toggleLangMenu(){
+      document.getElementById('langSwitch').classList.toggle('open');
+    }
+    document.addEventListener('click', e => {
+      const sw = document.getElementById('langSwitch');
+      if(sw && !sw.contains(e.target)) sw.classList.remove('open');
     });
-  }, { rootMargin: '-40% 0px -50% 0px' });
 
-  sections.forEach(sec => observer.observe(sec));
-</script>
+    function setLang(lang){
+      if(!TRANSLATIONS[lang]) lang='en';
+      currentLang = lang;
+      localStorage.setItem('site_lang', lang);
+      applyLang();
+      document.getElementById('langSwitch').classList.remove('open');
+      // إعادة رسم المحتوى المرتبط باللغة
+      renderCategories();
+      updateFeaturedTitle();
+      loadFeatured();
+    }
 
+    function applyLang(){
+      const dict = TRANSLATIONS[currentLang];
+      document.documentElement.lang = currentLang;
+      document.documentElement.dir = dict.dir;
+
+      document.getElementById('langBtnLabel').textContent = currentLang.toUpperCase();
+      document.querySelectorAll('.lang-option').forEach(btn=>{
+        btn.classList.toggle('active', btn.dataset.lang === currentLang);
+      });
+
+      document.getElementById('siteName').textContent = dict.siteName;
+
+      const searchInputEl = document.getElementById('searchInput');
+      if(searchInputEl) searchInputEl.placeholder = dict.searchPlaceholder;
+
+      document.getElementById('seriesTab').innerHTML = `<i class="fa-solid fa-tv"></i> ${dict.tabSeries}`;
+      document.getElementById('moviesTab').innerHTML = `<i class="fa-solid fa-film"></i> ${dict.tabMovies}`;
+
+      document.getElementById('appBannerTitle').textContent = dict.appBannerTitle;
+      document.getElementById('appBannerDesc').textContent = dict.appBannerDesc;
+      document.getElementById('appBannerBtnLabel').textContent = dict.appBannerBtn;
+
+      document.querySelector('#detailsView .content-head h2').textContent = dict.details;
+      document.querySelector('#episodesSection .section-title h2').textContent = dict.episodes;
+
+      document.getElementById('footerCopy').textContent = dict.footerCopy;
+      document.getElementById('loaderText').textContent = dict.loading;
+      const adTop = document.getElementById('adLabelTop');
+      const adBottom = document.getElementById('adLabelBottom');
+      if(adTop) adTop.textContent = dict.adLabel;
+      if(adBottom) adBottom.textContent = dict.adLabel;
+
+      document.querySelectorAll('.round-back').forEach(b => b.setAttribute('aria-label', dict.back));
+      document.getElementById('loadMoreBtn').innerHTML = `<i class="fa-solid fa-rotate"></i> ${dict.loadMore}`;
+      document.getElementById('prevBtn').innerHTML = `<i class="fa-solid fa-backward-step"></i> ${dict.previous}`;
+      document.getElementById('dlBtn').innerHTML = `<i class="fa-solid fa-download"></i> ${dict.download}`;
+      document.getElementById('nextBtn').innerHTML = `${dict.next} <i class="fa-solid fa-forward-step"></i>`;
+      document.getElementById('choiceDownloadBtn').innerHTML = `<i class="fa-solid fa-download"></i> ${dict.download}`;
+      document.querySelector('.choice-btn.watch').innerHTML = `<i class="fa-solid fa-circle-play"></i> ${dict.watch}`;
+      document.querySelector('.choice-close').textContent = dict.cancel;
+      document.querySelector('.choice-copy span').textContent = dict.chooseAction;
+
+      const featuredMoreLabel = document.getElementById('featuredMoreLabel');
+      if(featuredMoreLabel) featuredMoreLabel.textContent = dict.featuredMore;
+      updateFeaturedMoreButton();
+
+      const gridTitleEl = document.getElementById('gridTitle');
+      if(gridTitleEl && !gridTitleEl.dataset.dynamic) gridTitleEl.textContent = dict.results;
+
+      updateFeaturedTitle();
+    }
+
+    let activeType = 'series';
+    let currentGenreUrl = '';
+    let currentPage = 1;
+    let isSearching = false;
+    let currentView = 'homeView';
+    let globalEpisodes = [];
+    let currentEpisodeNum = -1;
+    let playerInstance = null;
+    let hlsInstance = null;
+    let currentDownloadUrl = '';
+    let currentPoster = '';
+    let currentMediaTitle = '';
+    let chosenEpisode = null;
+
+    function renderCategories(){
+      const data = CATEGORY_DATA[activeType];
+      const grid = document.getElementById('categoryGrid');
+      const dict = TRANSLATIONS[currentLang];
+      grid.innerHTML = '';
+      data.forEach(item => {
+        const label = dict.categories[item.key];
+        const card = document.createElement('button');
+        card.type = 'button';
+        card.className = 'category-card';
+        const iconHtml = `<i class="fa-solid ${item.icon}"></i>`;
+        card.innerHTML = `<span class="cat-icon">${iconHtml}</span><span class="cat-copy"><strong>${label}</strong></span>`;
+        const typeLabel = activeType === 'series' ? dict.tabSeries : dict.tabMovies;
+        card.onclick = () => loadGenre(item.url, `${typeLabel} ${label}`);
+        grid.appendChild(card);
+      });
+    }
+
+    function updateFeaturedTitle(){
+      const el=document.getElementById('featuredTitle');
+      if(el) el.innerHTML=`<i class="fa-solid fa-star" style="color:#ffd166"></i> ${activeType === 'series' ? t('featuredSeries') : t('featuredMovies')}`;
+    }
+
+    let featuredPage = 1;
+    let featuredLoading = false;
+    let featuredHasMore = false;
+
+    function updateFeaturedMoreButton(){
+      const btn=document.getElementById('featuredMoreBtn');
+      const label=document.getElementById('featuredMoreLabel');
+      if(!btn || !label) return;
+      label.textContent = featuredLoading ? t('featuredLoadingMore') : t('featuredMore');
+      btn.disabled = featuredLoading;
+      btn.style.display = featuredHasMore ? 'inline-flex' : 'none';
+    }
+
+    function appendFeaturedCards(items){
+      const grid=document.getElementById('featuredGrid');
+      const dict=TRANSLATIONS[currentLang];
+      items.forEach(item=>{
+        const card=document.createElement('article');
+        card.className='featured-card';
+        const badge=item.is_series ? dict.badgeSeries : dict.badgeMovie;
+        card.innerHTML=`<div class="featured-poster"><img src="${escapeAttr(item.img||'')}" alt="${escapeAttr(item.title||'')}" loading="lazy" referrerpolicy="no-referrer"><span class="featured-star"><i class="fa-solid fa-star"></i></span><span class="featured-badge">${badge}</span></div><div class="featured-title">${escapeHtml(item.title||dict.untitled)}</div>`;
+        card.onclick=()=>getDetails(item.href,item.is_series,item.img||'',item.title||'');
+        grid.appendChild(card);
+      });
+    }
+
+    async function loadFeatured(reset=true){
+      const grid=document.getElementById('featuredGrid');
+      if(!grid || featuredLoading) return;
+      const dict=TRANSLATIONS[currentLang];
+      if(reset){
+        featuredPage=1;
+        featuredHasMore=false;
+        grid.innerHTML=`<div class="featured-empty">${dict.loading}</div>`;
+      }
+      featuredLoading=true;
+      updateFeaturedMoreButton();
+      const cfg=FEATURED_DATA[activeType];
+      const data=await fetchAPI(`?action=genre&genre=${encodeURIComponent(cfg.url)}&p=${featuredPage}`);
+      const items=data && data.status==='success' && Array.isArray(data.data) ? data.data : [];
+      if(reset) grid.innerHTML='';
+      if(!items.length && reset){
+        grid.innerHTML=`<div class="featured-empty">${dict.noResults}</div>`;
+        featuredHasMore=false;
+      }else if(items.length){
+        appendFeaturedCards(items);
+        // نفترض وجود المزيد إذا أعاد الخادم صفحة ممتلئة بـ15 عنصرًا.
+        featuredHasMore = items.length >= cfg.limit;
+      }else{
+        featuredHasMore=false;
+      }
+      featuredLoading=false;
+      updateFeaturedMoreButton();
+    }
+
+    async function loadMoreFeatured(){
+      if(featuredLoading || !featuredHasMore) return;
+      featuredPage += 1;
+      await loadFeatured(false);
+    }
+
+    function switchType(type){
+      activeType = type;
+      document.getElementById('seriesTab').classList.toggle('active', type === 'series');
+      document.getElementById('moviesTab').classList.toggle('active', type === 'movies');
+      if(currentView !== 'homeView') showView('homeView', false);
+      renderCategories();
+      updateFeaturedTitle();
+      loadFeatured();
+      window.scrollTo({top:0,behavior:'smooth'});
+    }
+
+    function showView(viewId, push = true){
+      document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+      document.getElementById(viewId).classList.add('active');
+      currentView = viewId;
+      document.getElementById('searchArea').style.display = viewId === 'homeView' ? 'block' : 'none';
+      if(push && history.state?.view !== viewId) history.pushState({view:viewId}, '', location.href);
+      window.scrollTo({top:0,behavior:'smooth'});
+    }
+
+    function goBack(){
+      if(history.state && history.state.view !== 'homeView') history.back();
+      else showView('homeView', false);
+    }
+
+    function goHome(){
+      if(currentView !== 'homeView') showView('homeView');
+    }
+
+    window.addEventListener('popstate', () => {
+      destroyPlayer();
+      if(currentView === 'detailsView' && document.getElementById('mediaGrid').children.length){
+        showView('gridView', false);
+      }else{
+        showView('homeView', false);
+      }
+    });
+
+    function destroyPlayer(){
+      exitCinemaFullscreen();
+      try{ if(playerInstance){playerInstance.destroy();playerInstance=null;} }catch(e){}
+      try{ if(hlsInstance){hlsInstance.destroy();hlsInstance=null;} }catch(e){}
+      document.getElementById('videoContainer').innerHTML='';
+    }
+
+    function toggleLoader(show){ document.getElementById('loader').style.display = show ? 'flex' : 'none'; }
+
+    function showToast(message){
+      const el = document.getElementById('toast');
+      el.textContent = message;
+      el.classList.add('show');
+      clearTimeout(showToast.t);
+      showToast.t = setTimeout(()=>el.classList.remove('show'),2200);
+    }
+
+    async function fetchAPI(endpoint){
+      toggleLoader(true);
+      try{
+        const response = await fetch(API_URL + endpoint, {cache:'no-store'});
+        if(!response.ok) throw new Error('HTTP '+response.status);
+        const data = await response.json();
+        return data;
+      }catch(error){
+        showToast(t('connectionError'));
+        return null;
+      }finally{
+        toggleLoader(false);
+      }
+    }
+
+    async function loadGenre(url, title, page = 1){
+      if(page === 1){
+        currentGenreUrl = url;
+        currentPage = 1;
+        isSearching = false;
+        document.getElementById('mediaGrid').innerHTML='';
+        const gt=document.getElementById('gridTitle');
+        gt.textContent=title;
+        gt.dataset.dynamic='1';
+        document.getElementById('loadMoreBtn').style.display='none';
+        showView('gridView');
+      }
+      const data = await fetchAPI(`?action=genre&genre=${encodeURIComponent(url)}&p=${page}`);
+      if(data && data.status === 'success'){
+        renderCards(Array.isArray(data.data) ? data.data : []);
+        document.getElementById('loadMoreBtn').style.display = data.data && data.data.length ? 'block' : 'none';
+      }
+    }
+
+    async function executeSearch(){
+      const query = document.getElementById('searchInput').value.trim();
+      if(!query) return;
+      isSearching = true;
+      document.getElementById('mediaGrid').innerHTML='';
+      const gt=document.getElementById('gridTitle');
+      gt.textContent=`${t('searchResults')}${query}`;
+      gt.dataset.dynamic='1';
+      document.getElementById('loadMoreBtn').style.display='none';
+      showView('gridView');
+      const data = await fetchAPI(`?action=search&q=${encodeURIComponent(query)}`);
+      if(data && data.status === 'success') renderCards(Array.isArray(data.data) ? data.data : []);
+    }
+
+    // البحث التلقائي أثناء الكتابة بدون الحاجة إلى الضغط على Enter
+    let searchTimer = null;
+    let lastSearchQuery = '';
+    const searchInput = document.getElementById('searchInput');
+
+    searchInput.addEventListener('input', () => {
+      const query = searchInput.value.trim();
+      clearTimeout(searchTimer);
+
+      if(!query){
+        lastSearchQuery = '';
+        goHome();
+        return;
+      }
+
+      // مهلة قصيرة تمنع إرسال طلب API مع كل ضغطة بسرعة شديدة
+      searchTimer = setTimeout(() => {
+        if(query !== lastSearchQuery){
+          lastSearchQuery = query;
+          executeSearch();
+        }
+      }, 250);
+    });
+
+    searchInput.addEventListener('keydown', e => {
+      if(e.key === 'Enter'){
+        e.preventDefault();
+        clearTimeout(searchTimer);
+        lastSearchQuery = searchInput.value.trim();
+        executeSearch();
+      }
+    });
+
+    function loadMore(){
+      if(isSearching) return;
+      currentPage += 1;
+      loadGenre(currentGenreUrl, document.getElementById('gridTitle').textContent, currentPage);
+    }
+
+    function renderCards(items){
+      const grid = document.getElementById('mediaGrid');
+      if(!items.length && !grid.children.length){
+        grid.innerHTML=`<div class="empty"><i class="fa-regular fa-face-frown"></i><br><br>${t('noResults')}</div>`;
+        return;
+      }
+      items.forEach(item => {
+        const card = document.createElement('article');
+        card.className='media-item';
+        const badge = item.is_series ? t('badgeSeries') : t('badgeMovie');
+        card.innerHTML=`<div class="poster-wrap"><img src="${escapeAttr(item.img || '')}" alt="${escapeAttr(item.title || '')}" loading="lazy" referrerpolicy="no-referrer"><span class="media-badge">${badge}</span></div><div class="media-title">${escapeHtml(item.title || t('untitled'))}</div>`;
+        card.onclick = () => getDetails(item.href, item.is_series, item.img || '', item.title || '');
+        grid.appendChild(card);
+      });
+    }
+
+    async function getDetails(url, isSeriesKnown = true, poster = '', knownTitle = ''){
+      showView('detailsView');
+      document.getElementById('mediaTitle').textContent=t('loadingDetails');
+      document.getElementById('playerSection').style.display='none';
+      document.getElementById('episodesSection').style.display='none';
+      destroyPlayer();
+      globalEpisodes=[];
+      currentEpisodeNum=-1;
+      if(poster) currentPoster = poster;
+      if(knownTitle) currentMediaTitle = knownTitle;
+
+      const data = await fetchAPI(`?action=series&series=${encodeURIComponent(url)}`);
+      if(!data || data.status !== 'success'){
+        document.getElementById('mediaTitle').textContent=t('failDetails');
+        return;
+      }
+
+      currentMediaTitle = data.movie_title || currentMediaTitle || t('details');
+      document.getElementById('mediaTitle').textContent=currentMediaTitle;
+      if(Array.isArray(data.episodes) && data.episodes.length){
+        globalEpisodes=data.episodes;
+        document.getElementById('episodesSection').style.display='block';
+        document.getElementById('episodesCount').textContent=t('episodesCount')(data.episodes.length);
+        renderEpisodes(url, data.movie_title || '');
+      }
+
+      if(data.media_src || data.is_iframe){
+        setupPlayer(data);
+      }else if(!globalEpisodes.length){
+        document.getElementById('playerSection').style.display='block';
+        document.getElementById('videoContainer').innerHTML=`<div style="aspect-ratio:16/9;display:grid;place-items:center;color:#94a3b8;padding:20px;text-align:center">${t('linkUnavailable')}</div>`;
+      }
+    }
+
+    function renderEpisodes(currentUrl, title){
+      const list=document.getElementById('episodesList');
+      list.innerHTML='';
+      const epMatch=title.match(/الحلقة\s*(\d+)/);
+      if(epMatch) currentEpisodeNum=parseInt(epMatch[1],10);
+
+      globalEpisodes.forEach(ep => {
+        const btn=document.createElement('button');
+        btn.type='button';
+        btn.className='episode';
+        const poster = currentPoster || '';
+        btn.innerHTML=`<img class="episode-poster" src="${escapeAttr(poster)}" alt="${escapeAttr(currentMediaTitle)}" loading="lazy" referrerpolicy="no-referrer"><span class="episode-info"><span class="episode-name">${t('episodeLabel')} ${escapeHtml(ep.num)}</span><span class="episode-play"><i class="fa-solid fa-play"></i></span></span>`;
+        if(currentEpisodeNum === ep.num || (currentUrl && ep.link && currentUrl.includes(ep.link))){
+          btn.classList.add('active');
+          currentEpisodeNum=ep.num;
+        }
+        btn.onclick=()=>prepareEpisodeChoice(ep);
+        list.appendChild(btn);
+      });
+    }
+
+    async function prepareEpisodeChoice(ep){
+      chosenEpisode={...ep, data:null};
+      document.getElementById('choicePoster').src=currentPoster || '';
+      document.getElementById('choiceTitle').textContent=`${currentMediaTitle || t('seriesFallback')} - ${t('episodeLabel')} ${ep.num}`;
+      const modal=document.getElementById('episodeModal');
+      modal.classList.add('show');
+      document.getElementById('choiceDownloadBtn').style.display='none';
+      const data=await fetchAPI(`?action=series&series=${encodeURIComponent(ep.link)}`);
+      if(!chosenEpisode || chosenEpisode.link!==ep.link) return;
+      chosenEpisode.data=data && data.status==='success' ? data : null;
+      document.getElementById('choiceDownloadBtn').style.display=chosenEpisode.data?.media_src ? 'flex' : 'none';
+    }
+
+    function closeEpisodeModal(){
+      document.getElementById('episodeModal').classList.remove('show');
+    }
+
+    function watchChosenEpisode(){
+      if(!chosenEpisode?.data){ showToast(t('episodePreparing')); return; }
+      const ep=chosenEpisode;
+      closeEpisodeModal();
+      currentEpisodeNum=Number(ep.num);
+      currentDownloadUrl=ep.data.media_src || '';
+      document.getElementById('mediaTitle').textContent=`${currentMediaTitle} - ${t('episodeLabel')} ${ep.num}`;
+      document.getElementById('playerSection').style.display='block';
+      setupPlayer(ep.data, true);
+      window.scrollTo({top:0,behavior:'smooth'});
+    }
+
+    function downloadChosenEpisode(){
+      if(!chosenEpisode?.data?.media_src){ showToast(t('episodeNoDownload')); return; }
+      currentDownloadUrl=chosenEpisode.data.media_src;
+      startDownload();
+    }
+
+    function setupPlayer(data, autoFullscreen = false){
+      const section=document.getElementById('playerSection');
+      const container=document.getElementById('videoContainer');
+      section.style.display='block';
+      destroyPlayer();
+      if(autoFullscreen) enterCinemaFullscreen();
+
+      if(data.is_iframe){
+        container.innerHTML=`<iframe src="${escapeAttr(data.media_src)}" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>`;
+      }else{
+        container.innerHTML='<video id="plyrPlayer" playsinline controls></video>';
+        const video=document.getElementById('plyrPlayer');
+        const options={
+          controls:['play-large','restart','rewind','play','fast-forward','progress','current-time','duration','mute','volume','captions','settings','pip','airplay','fullscreen'],
+          settings:['quality','speed'],
+          seekTime:10,
+          autoplay:true,
+          fullscreen:{enabled:true,fallback:true,iosNative:true}
+        };
+        if(String(data.media_src).includes('.m3u8') && window.Hls && Hls.isSupported()){
+          hlsInstance=new Hls({enableWorker:true});
+          hlsInstance.loadSource(data.media_src);
+          hlsInstance.attachMedia(video);
+          hlsInstance.on(Hls.Events.MANIFEST_PARSED,()=>{
+            playerInstance=new Plyr(video,options);
+            playerInstance.play().catch(()=>{});
+            if(autoFullscreen) setTimeout(()=>enterCinemaFullscreen(),80);
+          });
+        }else{
+          video.src=data.media_src;
+          playerInstance=new Plyr(video,options);
+          playerInstance.play().catch(()=>{});
+          if(autoFullscreen) setTimeout(()=>enterCinemaFullscreen(),80);
+        }
+      }
+
+      currentDownloadUrl = data.media_src || '';
+      const dlBtn=document.getElementById('dlBtn');
+      dlBtn.style.display=currentDownloadUrl ? 'flex' : 'none';
+      dlBtn.onclick=startDownload;
+
+      const nextBtn=document.getElementById('nextBtn');
+      const prevBtn=document.getElementById('prevBtn');
+      nextBtn.style.display='none';
+      prevBtn.style.display='none';
+      if(currentEpisodeNum !== -1 && globalEpisodes.length){
+        const idx=globalEpisodes.findIndex(e=>Number(e.num)===Number(currentEpisodeNum));
+        if(idx>0){
+          prevBtn.style.display='flex';
+          prevBtn.onclick=()=>getDetails(globalEpisodes[idx-1].link,true,currentPoster,currentMediaTitle);
+        }
+        if(idx!==-1 && idx<globalEpisodes.length-1){
+          nextBtn.style.display='flex';
+          nextBtn.onclick=()=>getDetails(globalEpisodes[idx+1].link,true,currentPoster,currentMediaTitle);
+        }
+      }
+    }
+
+    function enterCinemaFullscreen(){
+      const section=document.getElementById('playerSection');
+      section.classList.add('cinema-shell');
+      document.body.classList.add('cinema-mode');
+      try{
+        if(window.Android && typeof window.Android.enterFullscreen === 'function') window.Android.enterFullscreen();
+      }catch(e){}
+      try{
+        const req=section.requestFullscreen || section.webkitRequestFullscreen || section.msRequestFullscreen;
+        if(req) Promise.resolve(req.call(section)).catch(()=>{});
+      }catch(e){}
+      try{ if(screen.orientation?.lock) screen.orientation.lock('landscape').catch(()=>{}); }catch(e){}
+    }
+
+    function exitCinemaFullscreen(){
+      document.getElementById('playerSection').classList.remove('cinema-shell');
+      document.body.classList.remove('cinema-mode');
+      try{ if(screen.orientation?.unlock) screen.orientation.unlock(); }catch(e){}
+      try{
+        if(window.Android && typeof window.Android.exitFullscreen === 'function') window.Android.exitFullscreen();
+      }catch(e){}
+    }
+
+    document.addEventListener('fullscreenchange',()=>{ if(!document.fullscreenElement) exitCinemaFullscreen(); });
+    document.addEventListener('webkitfullscreenchange',()=>{ if(!document.webkitFullscreenElement) exitCinemaFullscreen(); });
+
+    function startDownload(){
+      if(!currentDownloadUrl) return;
+      /* دعم اختياري إذا كان التطبيق يوفّر JavaScriptInterface باسم Android */
+      try{
+        if(window.Android && typeof window.Android.downloadFile === 'function'){
+          window.Android.downloadFile(currentDownloadUrl);
+          return;
+        }
+      }catch(e){}
+
+      const a=document.createElement('a');
+      a.href=currentDownloadUrl;
+      a.setAttribute('download','');
+      a.rel='noopener';
+      a.target='_self';
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+    }
+
+    function escapeHtml(value){
+      return String(value).replace(/[&<>'"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]));
+    }
+    function escapeAttr(value){ return escapeHtml(value); }
+
+    document.addEventListener('keydown',e=>{ if(e.key==='Escape' && document.getElementById('episodeModal').classList.contains('show')) closeEpisodeModal(); });
+
+    /* ====== جعل بانر Adsterra (728x90) متجاوباً مع شاشات الجوال ====== */
+    
+    function fitAdSlot(slotId, adWidth, adHeight){
+      const slot = document.getElementById(slotId);
+      if(!slot) return;
+      const wrap = slot.querySelector('.ad-scale-wrap');
+      if(!wrap) return;
+      function resize(){
+        const containerWidth = slot.clientWidth || adWidth;
+        const scale = Math.min(1, containerWidth / adWidth);
+        wrap.style.transform = `scale(${scale})`;
+        slot.style.height = Math.ceil(adHeight * scale) + 'px';
+      }
+      resize();
+      window.addEventListener('resize', resize);
+    }
+    window.addEventListener('load', () => { fitAdSlot('adSlotTop', 728, 90); fitAdSlot('adSlotBottom', 300, 250); });
+
+    history.replaceState({view:'homeView'},'',location.href);
+    applyLang();
+    renderCategories();
+    loadFeatured();
+  </script>
+  <div id="NEON_elmt"></div>
+<script data-cfasync='false' type='text/javascript' src='//neon.today/native/script/166818/42276/'></script>
 </body>
 </html>
