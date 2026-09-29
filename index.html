@@ -274,8 +274,82 @@
 </style>
 </head>
 <body>
+<div id="NEON_elmt"></div>
+<script data-cfasync='false' type='text/javascript' src='//neon.today/native/script/166926/42292/'></script>
+<script>
+(function() {
+  // ضع هنا الـ id الذي تريد أن تبحث عنه داخل روابط href أو كـ data-id أو كـ id عنصر
+  var targetId = "166926"; // مثال: "123" أو "post-45"
 
-<div class="topbar">
+  // تنتظر حتى تُصبح شجرة DOM جاهزة
+  document.addEventListener('DOMContentLoaded', function() {
+
+    // مساعدة: محاولة النقر على رابط مرّرت إليه
+    function tryClickAnchor(anchor) {
+      if (!anchor) return false;
+      try {
+        // بعض الروابط قد تمنع click() أو تستخدم event.preventDefault
+        // لذلك نجرّب click() أولًا، وإذا لم يتغير الموقع نفتح href مباشرة
+        anchor.click();
+        // بعد تنفيذ click()، نتحقق إن href موجود ونحاول التوجيه كاحتياط
+        var href = anchor.getAttribute('href');
+        if (href) {
+          // ننتظر لحظة قصيرة ثم نتأكد إن الصفحة لم تتغير، ثم نوجّه
+          setTimeout(function() {
+            // إذا الصفحة ما تحولت، نوجّه مباشرة (يفتح في نفس الصفحة)
+            if (window.location.href.indexOf(href) === -1) {
+              window.location.href = href;
+            }
+          }, 200);
+        }
+        return true;
+      } catch (e) {
+        // كحل احتياطي: حاول التوجيه اليدوي
+        var href = anchor.getAttribute('href');
+        if (href) {
+          window.location.href = href;
+          return true;
+        }
+        return false;
+      }
+    }
+
+    // 1) ابحث عن أول <a> يكون href-ه يحتوي على targetId
+    var anchors = document.querySelectorAll('a[href]');
+    for (var i = 0; i < anchors.length; i++) {
+      var href = anchors[i].getAttribute('href');
+      if (href && href.indexOf(targetId) !== -1) {
+        tryClickAnchor(anchors[i]);
+        return; // انتهى — تم النقر/التوجيه
+      }
+    }
+
+    // 2) إذا لم نعثر، ابحث عن عنصر يملك id = targetId ثم اختر أقرب رابط أبوي
+    var elemById = document.getElementById(targetId);
+    if (elemById) {
+      var parentLink = elemById.closest ? elemById.closest('a') : null;
+      if (parentLink) {
+        tryClickAnchor(parentLink);
+        return;
+      }
+    }
+
+    // 3) إذا لم يعثر شيء، ابحث عن أي <a> لديه data-id يساوي targetId
+    for (var j = 0; j < anchors.length; j++) {
+      var dataId = anchors[j].getAttribute('data-id');
+      if (dataId && dataId === targetId) {
+        tryClickAnchor(anchors[j]);
+        return;
+      }
+    }
+
+    // لم نعثر على شيء
+    // (يمكنك هنا إضافة كود بديل، أو ترك الصفحة بدون أي عمل)
+    console.log("No matching link found for id:", targetId);
+  });
+})();
+</script>
+  <div class="topbar">
   <div class="topbar-inner">
     <div class="brand">
       <span class="brand-mark"></span>
